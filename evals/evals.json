@@ -1,0 +1,38 @@
+{
+  "skill_name": "robot-selenium-to-browser",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "把输入文件里的 SeleniumLibrary 脚本迁移到 robotframework-browser 库。输入文件路径见 inputs/eval-0-basic-login.robot，把转换结果保存到指定输出目录。",
+      "expected_output": "转换后的 .robot 文件（库导入改为 Browser、关键字一对一映射）+ 转换报告",
+      "files": ["evals/files/eval-0-basic-login.robot"],
+      "expectations": [
+        "SeleniumLibrary 导入替换为 Browser",
+        "Input Text→Fill Text、Click Button→Click、Title Should Be→Get Title == 等一对一映射正确",
+        "生成转换报告"
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "把输入文件里的 SeleniumLibrary 脚本迁移到 robotframework-browser 库，含 Open Browser、Handle Alert、Select Frame、Execute Javascript、Get WebElement、隐式等待、多种 locator 前缀等复杂场景。输入文件路径见 inputs/eval-1-advanced.robot，把转换结果保存到指定输出目录。",
+      "expected_output": "复杂项被正确标记 TODO 或改写（三件套、弹窗、frame 穿透、Evaluate JavaScript、locator 前缀），而不是静默硬转错",
+      "files": ["evals/files/eval-1-advanced.robot"],
+      "expectations": [
+        "Open Browser/Handle Alert/Select Frame/Execute Javascript 被正确处理",
+        "id= 转 css=#、裸 xpath 加 xpath= 前缀",
+        "Set Selenium Implicit Wait 被标记删除"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "把输入文件里的 SeleniumLibrary 脚本迁移到 robotframework-browser 库，要求已封装关键字保持名称、参数、文档不变，只改关键字体内部库调用。输入文件路径见 inputs/eval-2-architecture.robot，把转换结果保存到指定输出目录。",
+      "expected_output": "自定义关键字名/参数/文档原样保留，仅内部 SeleniumLibrary 调用被转换",
+      "files": ["evals/files/eval-2-architecture.robot"],
+      "expectations": [
+        "自定义关键字名、[Arguments]、[Documentation] 保持不变",
+        "关键字内部库调用被转换",
+        "测试用例调用关系保持不变"
+      ]
+    }
+  ]
+}
